@@ -7,188 +7,57 @@
 <title>Dieta Diária</title>
 <style>
 :root{--bg:#f5f7f6;--card:#fff;--text:#17211d;--muted:#68756f;--line:#dce4e0;--accent:#176b57;--accent2:#e8f4ef;--danger:#b33a3a;--shadow:0 8px 24px rgba(20,45,36,.07)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-button,input{font:inherit}button{cursor:pointer;border:0}.app{max-width:1050px;margin:auto;padding:20px}
-header{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:18px}.brand h1{margin:0;font-size:27px}.brand p{margin:3px 0 0;color:var(--muted)}
-.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{padding:10px 13px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--text)}.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}.btn.danger{color:var(--danger)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:16px;margin-bottom:16px}
-.daybar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.daybar input{padding:9px;border:1px solid var(--line);border-radius:9px}
-.chart{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}.macro{padding:12px;border-radius:12px;background:var(--accent2)}.macro strong{display:block;font-size:19px}.macro span{color:var(--muted);font-size:12px}
-.bar{height:6px;background:#dbe7e2;border-radius:99px;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent);width:0}
-.meals{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.meal{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}.meal-head{padding:13px 14px;background:#fafcfb;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}.meal-head strong{font-size:16px}.meal-head small{color:var(--muted)}
-.item{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:11px 13px;border-bottom:1px solid #edf1ef}.item:last-child{border-bottom:0}.item input{width:19px;height:19px;accent-color:var(--accent)}.item.consumed .name{text-decoration:line-through;color:var(--muted)}.name{font-weight:600}.details{color:var(--muted);font-size:12px}.item-actions{display:flex;gap:5px}.icon{background:transparent;color:var(--muted);padding:5px;border-radius:7px}.icon:hover{background:#eef3f0}
-.empty{padding:15px;color:var(--muted);text-align:center}.add-form{display:grid;grid-template-columns:2fr repeat(5,1fr) auto;gap:7px;align-items:end}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:3px}.field input,.field select{width:100%;padding:9px;border:1px solid var(--line);border-radius:9px;background:#fff}.full{grid-column:1/-1}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.42);display:none;align-items:center;justify-content:center;padding:18px;z-index:5}.modal.open{display:flex}.modal-box{background:#fff;border-radius:16px;max-width:850px;width:100%;max-height:90vh;overflow:auto;padding:20px}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal h2{margin:0}.json{white-space:pre-wrap;background:#f5f7f6;border:1px solid var(--line);border-radius:10px;padding:12px;font:12px ui-monospace,monospace;overflow:auto}.history-row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.history-row:last-child{border-bottom:0}
-.notice{font-size:12px;color:var(--muted);margin-top:8px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#17211d;color:#fff;padding:10px 14px;border-radius:10px;display:none;z-index:10}
-@media(max-width:800px){.meals{grid-template-columns:1fr}.chart{grid-template-columns:repeat(2,1fr)}.add-form{grid-template-columns:repeat(2,1fr)}.add-form .name-field{grid-column:1/-1}.add-form .submit-field{grid-column:1/-1}.app{padding:12px}header{align-items:flex-start;flex-direction:column}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}.app{max-width:1050px;margin:auto;padding:20px}
+header{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:18px}.brand h1{margin:0;font-size:27px}.brand p{margin:3px 0 0;color:var(--muted)}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{padding:10px 13px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--text)}.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:16px;margin-bottom:16px}.daybar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.daybar input{padding:9px;border:1px solid var(--line);border-radius:9px}.chart{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}.macro{padding:12px;border-radius:12px;background:var(--accent2)}.macro strong{display:block;font-size:19px}.macro span{color:var(--muted);font-size:12px}.bar{height:6px;background:#dbe7e2;border-radius:99px;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent);width:0}
+.meals{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.meal{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}.meal-head{padding:13px 14px;background:#fafcfb;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}.meal-head strong{font-size:16px}.meal-head small{color:var(--muted)}.item{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:11px 13px;border-bottom:1px solid #edf1ef}.item:last-child{border-bottom:0}.item input{width:19px;height:19px;accent-color:var(--accent)}.item.consumed .name{text-decoration:line-through;color:var(--muted)}.name{font-weight:600}.details{color:var(--muted);font-size:12px}.item-actions{display:flex;gap:5px}.icon{background:transparent;color:var(--muted);padding:5px;border-radius:7px}.icon:hover{background:#eef3f0}.empty{padding:15px;color:var(--muted);text-align:center}
+.add-form{display:grid;grid-template-columns:2fr repeat(5,1fr) auto;gap:7px;align-items:end}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:3px}.field input,.field select,.field textarea{width:100%;padding:9px;border:1px solid var(--line);border-radius:9px;background:#fff}.notice{font-size:12px;color:var(--muted);margin-top:8px}.meal-config{display:grid;grid-template-columns:1fr 150px;gap:10px;align-items:end}.schedule{display:grid;gap:8px;margin-top:12px}.schedule-row{display:grid;grid-template-columns:1fr 150px;gap:8px}.json{white-space:pre-wrap;background:#f5f7f6;border:1px solid var(--line);border-radius:10px;padding:12px;font:12px ui-monospace,monospace;overflow:auto}.json-edit{width:100%;min-height:380px;resize:vertical}.history-row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.history-row:last-child{border-bottom:0}.modal{position:fixed;inset:0;background:rgba(0,0,0,.42);display:none;align-items:center;justify-content:center;padding:18px;z-index:5}.modal.open{display:flex}.modal-box{background:#fff;border-radius:16px;max-width:850px;width:100%;max-height:90vh;overflow:auto;padding:20px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.modal h2{margin:0}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#17211d;color:#fff;padding:10px 14px;border-radius:10px;display:none;z-index:10}
+@media(max-width:800px){.meals{grid-template-columns:1fr}.chart{grid-template-columns:repeat(2,1fr)}.add-form{grid-template-columns:repeat(2,1fr)}.add-form .name-field,.add-form .submit-field{grid-column:1/-1}.meal-config,.schedule-row{grid-template-columns:1fr 120px}.app{padding:12px}header{align-items:flex-start;flex-direction:column}}
 </style>
 </head>
 <body>
 <div class="app">
-<header>
-<div class="brand"><h1>🥗 Dieta Diária</h1><p>Controle simples de refeições e macros — tudo fica no seu dispositivo.</p></div>
-<div class="actions">
-<button class="btn" id="historyBtn">Histórico</button>
-<button class="btn" id="jsonBtn">Formato JSON</button>
-<button class="btn" id="backupBtn">Exportar backup</button>
-<label class="btn">Importar JSON<input id="importInput" type="file" accept=".json,application/json" hidden></label>
-</div>
-</header>
-
-<section class="card">
-<div class="daybar">
-<div><strong>Dia</strong> <input id="datePicker" type="date"></div>
-<div class="actions"><button class="btn" id="todayBtn">Hoje</button><button class="btn primary" id="newDayBtn">Aplicar dieta ao dia</button></div>
-</div>
-<div id="chart" class="chart"></div>
-</section>
-
+<header><div class="brand"><h1>🥗 Dieta Diária</h1><p>Controle simples de refeições e macros — tudo fica no seu dispositivo.</p></div><div class="actions"><button class="btn" id="historyBtn">Histórico</button><button class="btn" id="jsonBtn">Formato JSON</button><button class="btn" id="backupBtn">Exportar backup</button><label class="btn">Importar JSON<input id="importInput" type="file" accept=".json,application/json" hidden></label></div></header>
+<section class="card"><div class="daybar"><div><strong>Dia</strong> <input id="datePicker" type="date"></div><div class="actions"><button class="btn" id="todayBtn">Hoje</button><button class="btn primary" id="newDayBtn">Aplicar dieta ao dia</button></div></div><div id="chart" class="chart"></div></section>
 <section id="meals" class="meals"></section>
-
-<section class="card">
-<h2 style="margin:0 0 10px">Adicionar item ao dia atual</h2>
-<form id="addForm" class="add-form">
-<div class="field name-field"><label>Nome</label><input id="fName" required placeholder="Ex.: Maçã"></div>
-<div class="field"><label>Calorias</label><input id="fCal" type="number" min="0" step=".1" required></div>
-<div class="field"><label>Carboidratos (g)</label><input id="fCarb" type="number" min="0" step=".1" required></div>
-<div class="field"><label>Proteínas (g)</label><input id="fProt" type="number" min="0" step=".1" required></div>
-<div class="field"><label>Fibras (g)</label><input id="fFib" type="number" min="0" step=".1" required></div>
-<div class="field"><label>Gordura (g)</label><input id="fFat" type="number" min="0" step=".1" required></div>
-<div class="field"><label>Refeição</label><select id="fMeal"></select></div>
-<div class="field submit-field"><button class="btn primary" type="submit">Adicionar</button></div>
-</form>
-<div class="notice">Itens adicionados por aqui existem somente no dia selecionado e não alteram a dieta-base.</div>
-</section>
-
-<section class="card">
-<h2 style="margin:0 0 10px">Dieta-base</h2>
-<p class="notice">Cadastre ou importe uma dieta-base. A estrutura contém as 5 refeições fixas e seus itens nutricionais.</p>
-<div class="actions">
-<button class="btn primary" id="manageDietBtn">Cadastrar / editar dieta</button>
-<label class="btn">Importar dieta<input id="dietInput" type="file" accept=".json,application/json" hidden></label>
+<section class="card"><h2 style="margin:0 0 10px">Adicionar item ao dia atual</h2><form id="addForm" class="add-form"><div class="field name-field"><label>Nome</label><input id="fName" required placeholder="Ex.: Maçã"></div><div class="field"><label>Calorias</label><input id="fCal" type="number" min="0" step=".1" required></div><div class="field"><label>Carboidratos (g)</label><input id="fCarb" type="number" min="0" step=".1" required></div><div class="field"><label>Proteínas (g)</label><input id="fProt" type="number" min="0" step=".1" required></div><div class="field"><label>Fibras (g)</label><input id="fFib" type="number" min="0" step=".1" required></div><div class="field"><label>Gordura (g)</label><input id="fFat" type="number" min="0" step=".1" required></div><div class="field"><label>Refeição</label><select id="fMeal"></select></div><div class="field submit-field"><button class="btn primary" type="submit">Adicionar</button></div></form><div class="notice">Itens adicionados por aqui existem somente no dia atual e não alteram a dieta-base.</div></section>
+<section class="card"><h2 style="margin:0 0 10px">Dieta-base</h2><p class="notice">Escolha quantas refeições deseja no dia e defina o horário de cada uma. Depois, você pode preencher os itens nutricionais pelo editor JSON.</p><div class="actions"><button class="btn primary" id="manageDietBtn">Configurar dieta e refeições</button><button class="btn" id="jsonDietBtn">Editar dieta em JSON</button><label class="btn">Importar dieta<input id="dietInput" type="file" accept=".json,application/json" hidden></label></div></section>
 </div>
-</section>
-</div>
-
-<div id="modal" class="modal"><div class="modal-box"><div class="modal-head"><h2 id="modalTitle"></h2><button class="btn" id="closeModal">Fechar</button></div><div id="modalBody"></div></div></div>
-<div id="toast" class="toast"></div>
-
+<div id="modal" class="modal"><div class="modal-box"><div class="modal-head"><h2 id="modalTitle"></h2><button class="btn" id="closeModal">Fechar</button></div><div id="modalBody"></div></div></div><div id="toast" class="toast"></div>
 <script>
-const KEY="dietaDiaria.v1";
-const MEALS=[
-{id:"cafe",name:"Café da manhã",time:"06:00"},
-{id:"lanche",name:"Lanche",time:"09:00"},
-{id:"almoco",name:"Almoço",time:"12:00"},
-{id:"tarde",name:"Lanche da tarde",time:"16:00"},
-{id:"jantar",name:"Jantar",time:"20:00"}
-];
-const DEFAULT={schemaVersion:1,name:"Minha dieta",meals:MEALS.map(m=>({...m,items:[]}))};
-let db=load(), selectedDate=today();
-
+const KEY="dietaDiaria.v2";
+const DEFAULT={schemaVersion:2,name:"Minha dieta",meals:[{id:"refeicao-1",name:"Café da manhã",time:"06:00",items:[]},{id:"refeicao-2",name:"Lanche",time:"09:00",items:[]},{id:"refeicao-3",name:"Almoço",time:"12:00",items:[]},{id:"refeicao-4",name:"Lanche da tarde",time:"16:00",items:[]},{id:"refeicao-5",name:"Jantar",time:"20:00",items:[]}]};
+let db=load(),selectedDate=today();
 function today(){return new Date().toLocaleDateString("en-CA",{timeZone:"America/Sao_Paulo"})}
 function uid(){return crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2)}
 function clone(x){return JSON.parse(JSON.stringify(x))}
-function load(){
- try{const x=JSON.parse(localStorage.getItem(KEY));return x&&x.schemaVersion===1?x:{schemaVersion:1,diet:clone(DEFAULT),days:{}}}
- catch{return {schemaVersion:1,diet:clone(DEFAULT),days:{}}}
-}
+function migrate(x){if(!x||!x.diet||!x.days)return null;if(x.schemaVersion===2)return x;if(x.schemaVersion!==1)return null;const meals=x.diet.meals.map((m,n)=>({id:"refeicao-"+(n+1),name:m.name,time:m.time,items:m.items||[]}));return{schemaVersion:2,diet:{schemaVersion:2,name:x.diet.name||"Minha dieta",meals},days:x.days}}
+function load(){try{const raw=JSON.parse(localStorage.getItem(KEY));if(raw&&raw.schemaVersion===2)return raw;const old=JSON.parse(localStorage.getItem("dietaDiaria.v1"));const migrated=migrate(old);if(migrated){localStorage.setItem(KEY,JSON.stringify(migrated));return migrated}}catch{}return{schemaVersion:2,diet:clone(DEFAULT),days:{}}}
 function save(){localStorage.setItem(KEY,JSON.stringify(db))}
-function blankDayFromDiet(){
- return {date:selectedDate,version:1,savedAt:new Date().toISOString(),meals:db.diet.meals.map(m=>({...clone(m),items:m.items.map(i=>({...clone(i),consumed:false}))}))};
-}
-function latest(date=selectedDate){const a=db.days[date];return a&&a.length?a[a.length-1]:null}
-function currentDay(){
- let d=latest();
- if(!d){d=blankDayFromDiet();db.days[selectedDate]=[d];save()}
- return clone(d);
-}
-function commit(day){
- const arr=db.days[selectedDate]||[];
- day.version=(arr.at(-1)?.version||0)+1; day.savedAt=new Date().toISOString(); day.date=selectedDate;
- db.days[selectedDate]=[...arr,clone(day)];save();render();toast("Salvo");
-}
-function totals(day){
- const t={calories:0,carbs:0,protein:0,fiber:0,fat:0};
- day.meals.forEach(m=>m.items.forEach(i=>{if(i.consumed){t.calories+=+i.calories||0;t.carbs+=+i.carbs||0;t.protein+=+i.protein||0;t.fiber+=+i.fiber||0;t.fat+=+i.fat||0}}));return t
-}
+function blankDayFromDiet(){return{date:selectedDate,version:1,savedAt:new Date().toISOString(),meals:db.diet.meals.map(m=>({...clone(m),items:m.items.map(i=>({...clone(i),consumed:false}))}))}}
+function latest(){const a=db.days[selectedDate];return a&&a.length?a[a.length-1]:null}
+function currentDay(){let d=latest();if(!d){d=blankDayFromDiet();db.days[selectedDate]=[d];save()}return clone(d)}
+function commit(day){const arr=db.days[selectedDate]||[];day.version=(arr.at(-1)?.version||0)+1;day.savedAt=new Date().toISOString();day.date=selectedDate;db.days[selectedDate]=[...arr,clone(day)];save();render();toast("Salvo")}
+function totals(day){const t={calories:0,carbs:0,protein:0,fiber:0,fat:0};day.meals.forEach(m=>m.items.forEach(i=>{if(i.consumed){t.calories+=+i.calories||0;t.carbs+=+i.carbs||0;t.protein+=+i.protein||0;t.fiber+=+i.fiber||0;t.fat+=+i.fat||0}}));return t}
 function fmt(n){return Number(n.toFixed(1)).toLocaleString("pt-BR")}
-function renderChart(t){
- const specs=[["calories","Calorias","kcal",2000],["carbs","Carboidratos","g",250],["protein","Proteínas","g",120],["fiber","Fibras","g",30],["fat","Gorduras","g",70]];
- chart.innerHTML=specs.map(([k,l,u,target])=>`<div class="macro"><strong>${fmt(t[k])}</strong><span>${l} · ${u}</span><div class="bar"><i style="width:${Math.min(100,t[k]/target*100)}%"></i></div></div>`).join("");
-}
-function render(){
- datePicker.value=selectedDate;
- const day=currentDay(),t=totals(day);renderChart(t);
- fMeal.innerHTML=MEALS.map(m=>`<option value="${m.id}">${m.name}</option>`).join("");
- meals.innerHTML=day.meals.map(m=>`<article class="meal"><div class="meal-head"><strong>${m.name}</strong><small>${m.time}</small></div>${m.items.length?m.items.map(i=>`<div class="item ${i.consumed?"consumed":""}">
-<input type="checkbox" ${i.consumed?"checked":""} data-action="toggle" data-id="${i.id}" data-meal="${m.id}" aria-label="Consumido">
-<div><div class="name">${esc(i.name)}</div><div class="details">${fmt(i.calories)} kcal · C ${fmt(i.carbs)}g · P ${fmt(i.protein)}g · Fib ${fmt(i.fiber)}g · G ${fmt(i.fat)}g</div></div>
-<div class="item-actions">${selectedDate===today()?`<button class="icon" data-action="edit" data-id="${i.id}" data-meal="${m.id}" title="Editar">✎</button><button class="icon" data-action="delete" data-id="${i.id}" data-meal="${m.id}" title="Excluir">×</button>`:""}</div>
-</div>`).join(""):`<div class="empty">Nenhum item cadastrado.</div>`}</article>`).join("");
-}
+function renderChart(t){const specs=[["calories","Calorias","kcal",2000],["carbs","Carboidratos","g",250],["protein","Proteínas","g",120],["fiber","Fibras","g",30],["fat","Gorduras","g",70]];chart.innerHTML=specs.map(([k,l,u,target])=>`<div class="macro"><strong>${fmt(t[k])}</strong><span>${l} · ${u}</span><div class="bar"><i style="width:${Math.min(100,t[k]/target*100)}%"></i></div></div>`).join("")}
+function render(){datePicker.value=selectedDate;const day=currentDay();renderChart(totals(day));fMeal.innerHTML=db.diet.meals.map(m=>`<option value="${m.id}">${esc(m.name)} · ${m.time}</option>`).join("");meals.innerHTML=day.meals.map(m=>`<article class="meal"><div class="meal-head"><strong>${esc(m.name)}</strong><small>${esc(m.time)}</small></div>${m.items.length?m.items.map(i=>`<div class="item ${i.consumed?"consumed":""}"><input type="checkbox" ${i.consumed?"checked":""} data-action="toggle" data-id="${i.id}" data-meal="${m.id}" aria-label="Consumido"><div><div class="name">${esc(i.name)}</div><div class="details">${fmt(i.calories)} kcal · C ${fmt(i.carbs)}g · P ${fmt(i.protein)}g · Fib ${fmt(i.fiber)}g · G ${fmt(i.fat)}g</div></div><div class="item-actions">${selectedDate===today()?`<button class="icon" data-action="edit" data-id="${i.id}" data-meal="${m.id}" title="Editar">✎</button><button class="icon" data-action="delete" data-id="${i.id}" data-meal="${m.id}" title="Excluir">×</button>`:""}</div></div>`).join(""):`<div class="empty">Nenhum item cadastrado.</div>`}</article>`).join("")}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
 function toast(s){const e=document.getElementById("toast");e.textContent=s;e.style.display="block";setTimeout(()=>e.style.display="none",1600)}
 function showModal(title,body){modalTitle.textContent=title;modalBody.innerHTML=body;modal.classList.add("open")}
 function closeModal(){modal.classList.remove("open")}
-
-meals.addEventListener("change",e=>{
- if(e.target.dataset.action!=="toggle")return;
- const day=currentDay(),m=day.meals.find(x=>x.id===e.target.dataset.meal),i=m.items.find(x=>x.id===e.target.dataset.id);i.consumed=e.target.checked;commit(day)
-});
-meals.addEventListener("click",e=>{
- const b=e.target.closest("[data-action]");if(!b)return;
- const day=currentDay(),m=day.meals.find(x=>x.id===b.dataset.meal),idx=m.items.findIndex(x=>x.id===b.dataset.id);
- if(idx<0)return;
- if(b.dataset.action==="delete"){if(confirm("Excluir este item do dia?")){m.items.splice(idx,1);commit(day)}}
- if(b.dataset.action==="edit"){
-  const i=m.items[idx];
-  showModal("Editar item",`<form id="editForm" class="add-form">
-  ${["name","calories","carbs","protein","fiber","fat"].map((k,n)=>`<div class="field ${n===0?"name-field":""}"><label>${["Nome","Calorias","Carboidratos (g)","Proteínas (g)","Fibras (g)","Gordura (g)"][n]}</label><input id="e${k}" ${k==="name"?"required":'type="number" min="0" step=".1" required'} value="${esc(i[k])}"></div>`).join("")}
-  <div class="field"><button class="btn primary" type="submit">Salvar</button></div></form>`);
-  editForm.onsubmit=ev=>{ev.preventDefault();["name","calories","carbs","protein","fiber","fat"].forEach(k=>i[k]=k==="name"?document.getElementById("e"+k).value.trim():Number(document.getElementById("e"+k).value));commit(day);closeModal()}
- }
-});
-addForm.onsubmit=e=>{
- e.preventDefault();if(selectedDate!==today()){toast("Adição rápida só está disponível para hoje.");return}
- const day=currentDay(),m=day.meals.find(x=>x.id===fMeal.value);
- m.items.push({id:uid(),name:fName.value.trim(),calories:+fCal.value,carbs:+fCarb.value,protein:+fProt.value,fiber:+fFib.value,fat:+fFat.value,consumed:false,custom:true});
- commit(day);addForm.reset();
-};
-datePicker.onchange=()=>{selectedDate=datePicker.value;render()};
-todayBtn.onclick=()=>{selectedDate=today();render()};
-newDayBtn.onclick=()=>{if(confirm("Aplicar a dieta-base a este dia? Isso cria uma nova versão e substitui a versão atual do dia.")){db.days[selectedDate]=[blankDayFromDiet()];save();render();toast("Dieta aplicada")}};
-backupBtn.onclick=()=>{
- const payload={...clone(db),exportedAt:new Date().toISOString(),exportType:"backup"};
- download("backup-dieta.json",payload)
-};
-jsonBtn.onclick=()=>showModal("Formato JSON da dieta",`<p>Use este formato para importar uma dieta pronta. Os valores nutricionais são por item/porção cadastrada.</p><pre class="json">${esc(JSON.stringify({schemaVersion:1,name:"Exemplo",meals:MEALS.map((m,n)=>({...m,items:n===0?[{id:"ovo",name:"Ovo",calories:70,carbs:0.4,protein:6.3,fiber:0,fat:4.8}]:[]}))},null,2))}</pre>`);
-historyBtn.onclick=()=>{
- const dates=Object.keys(db.days).sort().reverse();
- showModal("Histórico de versões",dates.length?dates.map(d=>`<div class="history-row"><div><strong>${d}</strong><br><small>${db.days[d].length} versão(ões)</small></div><button class="btn" data-history="${d}">Ver JSON</button></div>`).join(""):"<p>Nenhum histórico ainda.</p>")
-};
-modalBody.onclick=e=>{
- const d=e.target.dataset.history;if(!d)return;
- showModal(`Histórico — ${d}`,`<pre class="json">${esc(JSON.stringify(db.days[d],null,2))}</pre>`)
-};
-manageDietBtn.onclick=()=>openDietEditor(db.diet);
-function openDietEditor(diet){
- showModal("Cadastrar / editar dieta-base",`<p>Edite a dieta como JSON. Ela deve conter exatamente as 5 refeições fixas.</p><textarea id="dietText" class="json" style="width:100%;min-height:380px">${esc(JSON.stringify(diet,null,2))}</textarea><div class="actions" style="margin-top:10px"><button class="btn primary" id="saveDiet">Salvar dieta-base</button></div>`);
- saveDiet.onclick=()=>{try{const x=JSON.parse(dietText.value);validateDiet(x);db.diet=x;save();closeModal();render();toast("Dieta-base salva")}catch(err){alert(err.message)}}
-}
-function validateDiet(x){
- if(!x||x.schemaVersion!==1||!Array.isArray(x.meals)||x.meals.length!==5)throw new Error("JSON inválido: schemaVersion deve ser 1 e meals deve conter exatamente 5 refeições.");
- const ids=MEALS.map(x=>x.id);
- x.meals.forEach((m,i)=>{if(m.id!==ids[i])throw new Error("As refeições devem estar na ordem e IDs fixos: cafe, lanche, almoco, tarde, jantar.");if(!Array.isArray(m.items))throw new Error("Cada refeição precisa de items.");m.items.forEach(i=>{for(const k of ["name","calories","carbs","protein","fiber","fat"])if(i[k]===undefined)throw new Error("Item sem campo obrigatório: "+k);i.id=i.id||uid();i.consumed=false})})
-}
-importInput.onchange=e=>readJSON(e.target.files[0],x=>{
- if(!x||x.schemaVersion!==1||!x.days||!x.diet)throw new Error("Este arquivo não parece ser um backup válido do app.");
- db=x;save();render();toast("Backup restaurado")
-});
-dietInput.onchange=e=>readJSON(e.target.files[0],x=>{validateDiet(x);db.diet=x;save();render();toast("Dieta importada")});
-function readJSON(file,cb){if(!file)return;const r=new FileReader();r.onload=()=>{try{cb(JSON.parse(r.result))}catch(err){alert(err.message)}};r.readAsText(file)}
-function download(name,data){const a=document.createElement("a"),b=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});a.href=URL.createObjectURL(b);a.download=name;a.click();URL.revokeObjectURL(a.href)}
-closeModal.onclick=closeModal;modal.onclick=e=>{if(e.target===modal)closeModal()};
-render();
+function dietJson(){return clone(db.diet)}
+function scheduleRows(meals){return meals.map((m,i)=>`<div class="schedule-row"><input id="mealName${i}" value="${esc(m.name)}" required placeholder="Nome da refeição"><input id="mealTime${i}" type="time" value="${esc(m.time)}" required></div>`).join("")}
+function openDietEditor(){const d=dietJson();showModal("Configurar dieta e refeições",`<div class="field"><label>Nome da dieta</label><input id="dietName" value="${esc(d.name)}"></div><div class="meal-config" style="margin-top:12px"><div class="field"><label>Quantidade de refeições por dia</label><input id="mealCount" type="number" min="1" max="12" value="${d.meals.length}"></div><button class="btn" id="updateSchedule">Atualizar horários</button></div><div class="notice">Você pode usar de 1 a 12 refeições. Defina o nome e o horário de cada refeição.</div><div id="schedule" class="schedule">${scheduleRows(d.meals)}</div><div class="actions" style="margin-top:12px"><button class="btn primary" id="saveSchedule">Salvar configuração</button></div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><p class="notice">Os itens nutricionais existentes são preservados quando possível. Para cadastrar ou editar alimentos, use “Editar dieta em JSON”.</p>`);updateSchedule.onclick=()=>{const count=Math.max(1,Math.min(12,Number(mealCount.value)||1));const old=[...document.querySelectorAll("#schedule .schedule-row")].map((r,i)=>({name:document.getElementById("mealName"+i)?.value||"Refeição "+(i+1),time:document.getElementById("mealTime"+i)?.value||"08:00"}));const rows=Array.from({length:count},(_,i)=>({name:old[i]?.name||"Refeição "+(i+1),time:old[i]?.time||"08:00"}));schedule.innerHTML=scheduleRows(rows)};saveSchedule.onclick=()=>{const rows=[...document.querySelectorAll("#schedule .schedule-row")].map((r,i)=>({name:document.getElementById("mealName"+i).value.trim(),time:document.getElementById("mealTime"+i).value}));if(rows.some(x=>!x.name||!x.time)){alert("Preencha o nome e o horário de todas as refeições.");return}const old=d.meals;db.diet={schemaVersion:2,name:dietName.value.trim()||"Minha dieta",meals:rows.map((r,i)=>({id:"refeicao-"+(i+1),name:r.name,time:r.time,items:old[i]?.items?clone(old[i].items):[]}))};save();closeModal();render();toast("Configuração salva")}}
+function openJsonEditor(){showModal("Editar dieta em JSON",`<p>Use este formato para cadastrar os itens e, se preferir, também alterar nomes e horários.</p><textarea id="dietText" class="json json-edit">${esc(JSON.stringify(dietJson(),null,2))}</textarea><div class="actions" style="margin-top:10px"><button class="btn primary" id="saveDiet">Salvar dieta</button></div>`);saveDiet.onclick=()=>{try{const x=JSON.parse(dietText.value);validateDiet(x);db.diet=x;save();closeModal();render();toast("Dieta salva")}catch(err){alert(err.message)}}}
+function validateDiet(x){if(!x||x.schemaVersion!==2||!Array.isArray(x.meals)||x.meals.length<1||x.meals.length>12)throw new Error("JSON inválido: schemaVersion deve ser 2 e meals deve conter de 1 a 12 refeições.");const ids=new Set();x.meals.forEach((m,n)=>{if(!m.id)m.id="refeicao-"+(n+1);if(ids.has(m.id))throw new Error("IDs de refeições devem ser únicos.");ids.add(m.id);if(!m.name||!m.time||!Array.isArray(m.items))throw new Error("Cada refeição precisa de name, time e items.");m.items.forEach(i=>{for(const k of ["name","calories","carbs","protein","fiber","fat"])if(i[k]===undefined)throw new Error("Item sem campo obrigatório: "+k);i.id=i.id||uid();delete i.consumed})})}
+meals.addEventListener("change",e=>{if(e.target.dataset.action!=="toggle")return;const day=currentDay(),m=day.meals.find(x=>x.id===e.target.dataset.meal),i=m?.items.find(x=>x.id===e.target.dataset.id);if(!i)return;i.consumed=e.target.checked;commit(day)});
+meals.addEventListener("click",e=>{const b=e.target.closest("[data-action]");if(!b)return;const day=currentDay(),m=day.meals.find(x=>x.id===b.dataset.meal),idx=m?.items.findIndex(x=>x.id===b.dataset.id);if(idx===undefined||idx<0)return;if(b.dataset.action==="delete"){if(confirm("Excluir este item do dia?")){m.items.splice(idx,1);commit(day)}}if(b.dataset.action==="edit"){const i=m.items[idx];showModal("Editar item",`<form id="editForm" class="add-form">${["name","calories","carbs","protein","fiber","fat"].map((k,n)=>`<div class="field ${n===0?"name-field":""}"><label>${["Nome","Calorias","Carboidratos (g)","Proteínas (g)","Fibras (g)","Gordura (g)"][n]}</label><input id="e${k}" ${k==="name"?"required":'type="number" min="0" step=".1" required'} value="${esc(i[k])}"></div>`).join("")}<div class="field"><button class="btn primary" type="submit">Salvar</button></div></form>`);editForm.onsubmit=ev=>{ev.preventDefault();["name","calories","carbs","protein","fiber","fat"].forEach(k=>i[k]=k==="name"?document.getElementById("e"+k).value.trim():Number(document.getElementById("e"+k).value));commit(day);closeModal()}}});
+addForm.onsubmit=e=>{e.preventDefault();if(selectedDate!==today()){toast("Adição rápida só está disponível para hoje.");return}const day=currentDay(),m=day.meals.find(x=>x.id===fMeal.value);if(!m)return;m.items.push({id:uid(),name:fName.value.trim(),calories:+fCal.value,carbs:+fCarb.value,protein:+fProt.value,fiber:+fFib.value,fat:+fFat.value,consumed:false,custom:true});commit(day);addForm.reset()};
+datePicker.onchange=()=>{selectedDate=datePicker.value;render()};todayBtn.onclick=()=>{selectedDate=today();render()};newDayBtn.onclick=()=>{if(confirm("Aplicar a dieta-base a este dia? Isso cria uma nova versão e substitui a versão atual do dia.")){db.days[selectedDate]=[blankDayFromDiet()];save();render();toast("Dieta aplicada")}};
+backupBtn.onclick=()=>download("backup-dieta.json",{...clone(db),exportedAt:new Date().toISOString(),exportType:"backup"});jsonBtn.onclick=()=>showModal("Formato JSON da dieta",`<p>A dieta pode ter de 1 a 12 refeições. O horário e os itens são configuráveis.</p><pre class="json">${esc(JSON.stringify({schemaVersion:2,name:"Exemplo",meals:[{id:"refeicao-1",name:"Café da manhã",time:"08:00",items:[{id:"ovo",name:"Ovo",calories:70,carbs:0.4,protein:6.3,fiber:0,fat:4.8}]},{id:"refeicao-2",name:"Almoço",time:"12:00",items:[]}]},null,2))}</pre>`);
+historyBtn.onclick=()=>{const dates=Object.keys(db.days).sort().reverse();showModal("Histórico de versões",dates.length?dates.map(d=>`<div class="history-row"><div><strong>${d}</strong><br><small>${db.days[d].length} versão(ões)</small></div><button class="btn" data-history="${d}">Ver JSON</button></div>`).join(""):"<p>Nenhum histórico ainda.</p>")};modalBody.onclick=e=>{const d=e.target.dataset.history;if(!d)return;showModal(`Histórico — ${d}`,`<pre class="json">${esc(JSON.stringify(db.days[d],null,2))}</pre>`)};
+manageDietBtn.onclick=openDietEditor;jsonDietBtn.onclick=openJsonEditor;importInput.onchange=e=>readJSON(e.target.files[0],x=>{if(!x||x.schemaVersion!==2||!x.days||!x.diet)throw new Error("Este arquivo não parece ser um backup válido do app.");db=x;save();render();toast("Backup restaurado")});dietInput.onchange=e=>readJSON(e.target.files[0],x=>{validateDiet(x);db.diet=x;save();render();toast("Dieta importada")});function readJSON(file,cb){if(!file)return;const r=new FileReader();r.onload=()=>{try{cb(JSON.parse(r.result))}catch(err){alert(err.message)}};r.readAsText(file)}function download(name,data){const a=document.createElement("a"),b=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});a.href=URL.createObjectURL(b);a.download=name;a.click();URL.revokeObjectURL(a.href)}closeModal.onclick=closeModal;modal.onclick=e=>{if(e.target===modal)closeModal()};render();
 </script>
 </body>
 </html>
