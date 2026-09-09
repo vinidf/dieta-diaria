@@ -1,0 +1,41 @@
+name: Apply reset option
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore app and add reset
+        run: |
+          git checkout 42906b54dde18b522d2588e89e17766c0ac825b7 -- index.html
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          old='<button class="btn" id="backupBtn">💾 Exportar backup</button>'
+          new=old+'<button class="btn danger" id="resetBtn">🗑️ Resetar aplicativo</button>'
+          if 'id="resetBtn"' not in s:
+              s=s.replace(old,new,1)
+          marker='importInput.onchange='
+          insert='resetBtn.onclick=()=>{if(confirm("Isso apagará a dieta configurada, o histórico e todos os dados salvos neste navegador. Esta ação não pode ser desfeita. Exporte um backup antes se quiser preservar seus dados.")){localStorage.clear();location.reload()}}\n'
+          if 'resetBtn.onclick=' not in s:
+              s=s.replace(marker,insert+marker,1)
+          p.write_text(s)
+          PY
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add index.html
+          git commit -m "Add application reset option"
+          git push
+      - name: Remove temporary workflow
+        run: |
+          rm -f .github/workflows/apply-reset.yml
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add -A
+          git commit -m "Remove temporary update workflow" || exit 0
+          git push
