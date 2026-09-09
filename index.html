@@ -303,7 +303,6 @@ function toast(s) { const e = document.getElementById("toast"); e.textContent = 
 function showModal(title, body) { modalTitle.textContent = title; modalBody.innerHTML = body; modal.classList.add("open"); }
 function closeModal() { modal.classList.remove("open"); }
 
-// ALTERNÂNCIA E EDIÇÃO DE ITENS (MANUAL OU SUBSTITUTO)
 meals.addEventListener("click", e => {
   const b = e.target.closest("[data-action]");
   if (!b) return;
@@ -415,7 +414,6 @@ addForm.onsubmit = e => {
   addForm.reset();
 };
 
-// GERENCIAMENTO DA DIETA BASE VIA UI E JSON
 function openDietEditorUI() {
   const d = clone(db.diet);
   
@@ -538,7 +536,7 @@ backupBtn.onclick = () => download("backup-dieta.json", { ...clone(db), exported
 jsonBtn.onclick = () => showModal("JSON Dieta Atual", `<pre class="json">${esc(JSON.stringify(db.diet, null, 2))}</pre>`);
 historyBtn.onclick = () => {
   const dates = Object.keys(db.days).sort().reverse();
-  showModal("Histórico", dates.length ? dates.map(d => `<div style="display:flex;justify-space-between;padding:8px 0;border-bottom:1px solid var(--line);"><span>${d}</span><button class="btn" onclick="viewHistoryDate('${d}')">Ver Registros</button></div>`).join("") : "<p>Sem histórico.</p>");
+  showModal("Histórico", dates.length ? dates.map(d => `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);"><span>${d}</span><button class="btn" onclick="viewHistoryDate('${d}')">Ver Registros</button></div>`).join("") : "<p>Sem histórico.</p>");
 };
 
 window.viewHistoryDate = (d) => { showModal(`Histórico — ${d}`, `<pre class="json">${esc(JSON.stringify(db.days[d], null, 2))}</pre>`); };
