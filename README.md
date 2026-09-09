@@ -4,7 +4,9 @@ App web estático em português do Brasil para acompanhar uma dieta diária sem 
 
 ## Recursos
 
-- 5 refeições fixas: 06h, 09h, 12h, 16h e 20h.
+- Quantidade configurável de 1 a 12 refeições por dia.
+- Nome e horário configuráveis para cada refeição.
+- Itens nutricionais configuráveis por refeição.
 - Checkbox por item.
 - Totais automáticos de calorias, carboidratos, proteínas, fibras e gorduras dos itens consumidos.
 - Indicadores visuais no topo.
@@ -14,19 +16,26 @@ App web estático em português do Brasil para acompanhar uma dieta diária sem 
 - Histórico de versões diárias.
 - Exportação/importação de backup JSON.
 - Importação e cadastro/edição da dieta-base em JSON.
+- Migração automática da versão anterior com 5 refeições fixas.
 - Sem backend e sem envio de dados para terceiros.
+
+## Configuração das refeições
+
+Na opção **Configurar dieta e refeições**, a pessoa escolhe de 1 a 12 refeições por dia e define o nome e o horário de cada uma. Ao salvar, os novos dias passam a usar essa estrutura. Itens das refeições existentes são preservados quando possível.
 
 ## Formato JSON da dieta
 
+A dieta usa `schemaVersion: 2` e aceita de 1 a 12 refeições. Cada refeição define seu próprio nome e horário.
+
 ```json
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "name": "Minha dieta",
   "meals": [
     {
-      "id": "cafe",
+      "id": "refeicao-1",
       "name": "Café da manhã",
-      "time": "06:00",
+      "time": "08:00",
       "items": [
         {
           "id": "ovo",
@@ -40,27 +49,9 @@ App web estático em português do Brasil para acompanhar uma dieta diária sem 
       ]
     },
     {
-      "id": "lanche",
-      "name": "Lanche",
-      "time": "09:00",
-      "items": []
-    },
-    {
-      "id": "almoco",
+      "id": "refeicao-2",
       "name": "Almoço",
       "time": "12:00",
-      "items": []
-    },
-    {
-      "id": "tarde",
-      "name": "Lanche da tarde",
-      "time": "16:00",
-      "items": []
-    },
-    {
-      "id": "jantar",
-      "name": "Jantar",
-      "time": "20:00",
       "items": []
     }
   ]
@@ -71,41 +62,14 @@ Os valores nutricionais são referentes à porção representada pelo item.
 
 ## Armazenamento
 
-A chave `dietaDiaria.v1` do `localStorage` guarda a dieta-base e o histórico por data. Cada alteração gera uma nova versão do dia, permitindo recuperar o estado anterior através do backup/histórico.
+A chave `dietaDiaria.v2` do `localStorage` guarda a dieta-base e o histórico por data. Cada alteração gera uma nova versão do dia. A versão anterior `dietaDiaria.v1` é migrada automaticamente quando encontrada.
 
-Exemplo conceitual:
+## Privacidade e direitos
 
-```json
-{
-  "schemaVersion": 1,
-  "diet": { "...": "dieta-base" },
-  "days": {
-    "2026-09-09": [
-      {
-        "date": "2026-09-09",
-        "version": 1,
-        "savedAt": "2026-09-09T12:00:00.000Z",
-        "meals": []
-      },
-      {
-        "date": "2026-09-09",
-        "version": 2,
-        "savedAt": "2026-09-09T13:00:00.000Z",
-        "meals": []
-      }
-    ]
-  }
-}
-```
+Não há conta, backend, analytics, API externa, imagens externas, fontes externas ou bibliotecas de terceiros. Os dados registrados pelo usuário ficam somente no navegador. O backup exportado contém apenas a estrutura da dieta e os registros locais armazenados pelo app.
 
-## Privacidade
+O repositório contém somente o código e a documentação do aplicativo, sem dados pessoais do usuário.
 
-O aplicativo é estático e não possui conta, servidor próprio, banco de dados, analytics ou chamadas para APIs externas. Os dados inseridos pelo usuário ficam no `localStorage` do navegador e só saem do dispositivo quando o próprio usuário exporta um backup JSON.
+## GitHub Pages
 
-O repositório não contém dados pessoais, credenciais, tokens, chaves de API ou arquivos de configuração secretos.
-
-## Direitos e dependências
-
-O código deste projeto foi produzido para este projeto e a versão publicada não inclui bibliotecas externas, imagens de terceiros, fontes externas, ícones externos ou trechos identificados de código de terceiros. O exemplo nutricional de ovo no editor é apenas um dado demonstrativo de teste e não constitui uma base nutricional completa.
-
-Antes de reutilizar código, textos, dados nutricionais ou outros materiais de terceiros em futuras versões, verifique a licença e os respectivos direitos de uso.
+Como é uma aplicação estática, basta publicar `index.html` pela branch principal e pela pasta raiz usando GitHub Pages.
