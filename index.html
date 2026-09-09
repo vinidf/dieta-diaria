@@ -58,18 +58,19 @@ header { display: flex; gap: 16px; align-items: center; justify-content: space-b
 .meal-head { padding: 13px 14px; background: #252525; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; }
 .meal-head strong { font-size: 16px; color: #fff; }
 .meal-head small { color: var(--muted); }
-.item { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; padding: 11px 13px; border-bottom: 1px solid var(--line); }
+.item { display: grid; grid-template-columns: auto 1fr auto auto; gap: 10px; align-items: center; padding: 11px 13px; border-bottom: 1px solid var(--line); }
 .item:last-child { border-bottom: 0; }
 .item input[type="checkbox"] { width: 19px; height: 19px; accent-color: var(--accent); }
 .item.consumed .name { text-decoration: line-through; color: var(--muted); }
 .name { font-weight: 600; color: #fff; }
 .details { color: var(--muted); font-size: 12px; }
 .item-actions { display: flex; gap: 5px; }
+.qty-input { width: 60px; padding: 6px; border: 1px solid var(--line); border-radius: 6px; background: #2a2a2a; color: #fff; text-align: center; font-size: 13px; }
 .icon { background: transparent; color: var(--muted); padding: 5px; border-radius: 7px; }
 .icon:hover { background: #333; color: #fff; }
 .empty { padding: 15px; color: var(--muted); text-align: center; }
 
-.add-form { display: grid; grid-template-columns: 2fr repeat(5, 1fr) auto; gap: 7px; align-items: end; }
+.add-form { display: grid; grid-template-columns: 2fr repeat(6, 1fr) auto; gap: 7px; align-items: end; }
 .field label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 3px; }
 .field input, .field select, .field textarea { width: 100%; padding: 9px; border: 1px solid var(--line); border-radius: 9px; background: #2a2a2a; color: #fff; }
 .field input:focus, .field select:focus, .field textarea:focus { outline: 1px solid var(--accent); }
@@ -139,16 +140,17 @@ header { display: flex; gap: 16px; align-items: center; justify-content: space-b
   <section class="card">
     <h2 style="margin:0 0 10px; color:#fff;">Adicionar item ao dia atual</h2>
     <form id="addForm" class="add-form">
-      <div class="field name-field"><label>Nome</label><input id="fName" required placeholder="Ex.: Maçã"></div>
-      <div class="field"><label>Calorias</label><input id="fCal" type="number" min="0" step=".1" required></div>
-      <div class="field"><label>Carboidratos (g)</label><input id="fCarb" type="number" min="0" step=".1" required></div>
-      <div class="field"><label>Proteínas (g)</label><input id="fProt" type="number" min="0" step=".1" required></div>
-      <div class="field"><label>Fibras (g)</label><input id="fFib" type="number" min="0" step=".1" required></div>
-      <div class="field"><label>Gordura (g)</label><input id="fFat" type="number" min="0" step=".1" required></div>
+      <div class="field name-field"><label>Nome</label><input id="fName" required placeholder="Ex.: Ovo de galinha"></div>
+      <div class="field"><label>Qtd / Porção</label><input id="fQty" type="number" min="0.1" step=".1" value="1" required></div>
+      <div class="field"><label>Calorias (un)</label><input id="fCal" type="number" min="0" step=".1" required></div>
+      <div class="field"><label>Carbos (un)</label><input id="fCarb" type="number" min="0" step=".1" required></div>
+      <div class="field"><label>Proteínas (un)</label><input id="fProt" type="number" min="0" step=".1" required></div>
+      <div class="field"><label>Fibras (un)</label><input id="fFib" type="number" min="0" step=".1" required></div>
+      <div class="field"><label>Gorduras (un)</label><input id="fFat" type="number" min="0" step=".1" required></div>
       <div class="field"><label>Refeição</label><select id="fMeal"></select></div>
       <div class="field submit-field"><button class="btn primary" type="submit">Adicionar</button></div>
     </form>
-    <div class="notice">Itens adicionados por aqui existem somente no dia atual e não alteram a dieta-base.</div>
+    <div class="notice">Valores nutricionais informados devem ser correspondentes a 1 unidade/porção base.</div>
   </section>
 
   <section class="card">
@@ -166,7 +168,7 @@ header { display: flex; gap: 16px; align-items: center; justify-content: space-b
   <div class="modal-box">
     <div class="modal-head">
       <h2 id="modalTitle"></h2>
-      <button class="btn" id="closeModal">Fechar</button>
+      <button class="btn" id="closeModalBtn">Fechar</button>
     </div>
     <div id="modalBody"></div>
   </div>
@@ -180,9 +182,9 @@ const DEFAULT = {
   schemaVersion: 2,
   name: "Minha dieta",
   meals: [
-    { id: "refeicao-1", name: "Café da manhã", time: "06:00", items: [{ id: "ovo", name: "Ovo de galinha cozido (3 un)", calories: 234, carbs: 1.2, protein: 18.9, fiber: 0, fat: 15.9 }] },
+    { id: "refeicao-1", name: "Café da manhã", time: "06:00", items: [{ id: "ovo", name: "Ovo de galinha cozido", qty: 3, calories: 78, carbs: 0.4, protein: 6.3, fiber: 0, fat: 5.3 }] },
     { id: "refeicao-2", name: "Lanche", time: "09:00", items: [] },
-    { id: "refeicao-3", name: "Almoço", time: "12:00", items: [{ id: "frango", name: "Peito de frango (150g)", calories: 240, carbs: 0, protein: 46, fiber: 0, fat: 5 }] },
+    { id: "refeicao-3", name: "Almoço", time: "12:00", items: [{ id: "frango", name: "Peito de frango (porção 100g)", qty: 1.5, calories: 160, carbs: 0, protein: 30, fiber: 0, fat: 3.3 }] },
     { id: "refeicao-4", name: "Lanche da tarde", time: "16:00", items: [] },
     { id: "refeicao-5", name: "Jantar", time: "20:00", items: [] }
   ]
@@ -194,32 +196,25 @@ function today() { return new Date().toLocaleDateString("en-CA", { timeZone: "Am
 function uid() { return crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2); }
 function clone(x) { return JSON.parse(JSON.stringify(x)); }
 
-function migrate(x) {
-  if (!x || !x.diet || !x.days) return null;
-  if (x.schemaVersion === 2) return x;
-  if (x.schemaVersion !== 1) return null;
-  const meals = x.diet.meals.map((m, n) => ({ id: "refeicao-" + (n + 1), name: m.name, time: m.time, items: m.items || [] }));
-  return { schemaVersion: 2, diet: { schemaVersion: 2, name: x.diet.name || "Minha dieta", meals }, days: x.days };
-}
-
 function load() {
   try {
     const raw = JSON.parse(localStorage.getItem(KEY));
     if (raw && raw.schemaVersion === 2) return raw;
-    const old = JSON.parse(localStorage.getItem("dietaDiaria.v1"));
-    const migrated = migrate(old);
-    if (migrated) { localStorage.setItem(KEY, JSON.stringify(migrated)); return migrated; }
   } catch {}
   return { schemaVersion: 2, diet: clone(DEFAULT), days: {} };
 }
 
 function save() { localStorage.setItem(KEY, JSON.stringify(db)); }
+
 function blankDayFromDiet() {
   return {
     date: selectedDate,
     version: 1,
     savedAt: new Date().toISOString(),
-    meals: db.diet.meals.map(m => ({ ...clone(m), items: m.items.map(i => ({ ...clone(i), consumed: false })) }))
+    meals: db.diet.meals.map(m => ({
+      ...clone(m),
+      items: m.items.map(i => ({ ...clone(i), qty: i.qty || 1, consumed: false }))
+    }))
   };
 }
 
@@ -245,11 +240,12 @@ function totals(day) {
   const t = { calories: 0, carbs: 0, protein: 0, fiber: 0, fat: 0 };
   day.meals.forEach(m => m.items.forEach(i => {
     if (i.consumed) {
-      t.calories += +i.calories || 0;
-      t.carbs += +i.carbs || 0;
-      t.protein += +i.protein || 0;
-      t.fiber += +i.fiber || 0;
-      t.fat += +i.fat || 0;
+      const q = Number(i.qty) || 1;
+      t.calories += (+i.calories || 0) * q;
+      t.carbs += (+i.carbs || 0) * q;
+      t.protein += (+i.protein || 0) * q;
+      t.fiber += (+i.fiber || 0) * q;
+      t.fat += (+i.fat || 0) * q;
     }
   }));
   return t;
@@ -282,26 +278,60 @@ function render() {
   meals.innerHTML = day.meals.map(m => `
     <article class="meal">
       <div class="meal-head"><strong>${esc(m.name)}</strong><small>${esc(m.time)}</small></div>
-      ${m.items.length ? m.items.map(i => `
+      ${m.items.length ? m.items.map(i => {
+        const q = Number(i.qty) || 1;
+        const totCal = (i.calories || 0) * q;
+        const totCarb = (i.carbs || 0) * q;
+        const totProt = (i.protein || 0) * q;
+        const totFat = (i.fat || 0) * q;
+        const totFib = (i.fiber || 0) * q;
+        return `
         <div class="item ${i.consumed ? "consumed" : ""}">
           <input type="checkbox" ${i.consumed ? "checked" : ""} data-action="toggle" data-id="${i.id}" data-meal="${m.id}">
           <div>
             <div class="name">${esc(i.name)}</div>
-            <div class="details">${fmt(i.calories)} kcal · C ${fmt(i.carbs)}g · P ${fmt(i.protein)}g · G ${fmt(i.fat)}g · Fib ${fmt(i.fiber)}g</div>
+            <div class="details">${fmt(totCal)} kcal · C ${fmt(totCarb)}g · P ${fmt(totProt)}g · G ${fmt(totFat)}g · Fib ${fmt(totFib)}g</div>
+          </div>
+          <div>
+            <input type="number" class="qty-input" min="0.1" step="0.5" value="${q}" data-action="qty" data-id="${i.id}" data-meal="${m.id}" title="Quantidade">
           </div>
           <div class="item-actions">
             ${selectedDate === today() ? `<button class="icon" data-action="edit" data-id="${i.id}" data-meal="${m.id}" title="Editar">✎</button><button class="icon" data-action="delete" data-id="${i.id}" data-meal="${m.id}" title="Excluir">×</button>` : ""}
           </div>
         </div>
-      `).join("") : `<div class="empty">Nenhum item cadastrado.</div>`}
+      `}).join("") : `<div class="empty">Nenhum item cadastrado.</div>`}
     </article>
   `).join("");
 }
 
 function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[c])); }
 function toast(s) { const e = document.getElementById("toast"); e.textContent = s; e.style.display = "block"; setTimeout(() => e.style.display = "none", 1600); }
-function showModal(title, body) { modalTitle.textContent = title; modalBody.innerHTML = body; modal.classList.add("open"); }
-function closeModal() { modal.classList.remove("open"); }
+
+window.closeModal = function() {
+  document.getElementById("modal").classList.remove("open");
+};
+
+function showModal(title, body) {
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalBody").innerHTML = body;
+  document.getElementById("modal").classList.add("open");
+}
+
+meals.addEventListener("change", e => {
+  const act = e.target.dataset.action;
+  const day = currentDay();
+  const m = day.meals.find(x => x.id === e.target.dataset.meal);
+  const i = m?.items.find(x => x.id === e.target.dataset.id);
+  if (!i) return;
+
+  if (act === "toggle") {
+    i.consumed = e.target.checked;
+    commit(day);
+  } else if (act === "qty") {
+    i.qty = Math.max(0.1, parseFloat(e.target.value) || 1);
+    commit(day);
+  }
+});
 
 meals.addEventListener("click", e => {
   const b = e.target.closest("[data-action]");
@@ -331,7 +361,7 @@ meals.addEventListener("click", e => {
           <label>Selecione um alimento equivalente da dieta base:</label>
           <select id="subSelect">
             <option value="">-- Escolher substituto --</option>
-            ${allEquivalents.map((eq, i) => `<option value="${i}">${esc(eq.name)} (${eq.calories} kcal | P: ${eq.protein}g)</option>`).join("")}
+            ${allEquivalents.map((eq, i) => `<option value="${i}">${esc(eq.name)} (${eq.calories} kcal/un | P: ${eq.protein}g)</option>`).join("")}
           </select>
         </div>
       </div>
@@ -339,11 +369,12 @@ meals.addEventListener("click", e => {
       <div id="tabManualContent" style="display:none;">
         <form id="editManualForm" class="add-form">
           <div class="field name-field"><label>Nome</label><input id="eName" value="${esc(item.name)}" required></div>
-          <div class="field"><label>Calorias</label><input id="eCal" type="number" min="0" step=".1" value="${item.calories}" required></div>
-          <div class="field"><label>Carboidratos</label><input id="eCarb" type="number" min="0" step=".1" value="${item.carbs}" required></div>
-          <div class="field"><label>Proteínas</label><input id="eProt" type="number" min="0" step=".1" value="${item.protein}" required></div>
-          <div class="field"><label>Fibras</label><input id="eFib" type="number" min="0" step=".1" value="${item.fiber}" required></div>
-          <div class="field"><label>Gorduras</label><input id="eFat" type="number" min="0" step=".1" value="${item.fat}" required></div>
+          <div class="field"><label>Qtd</label><input id="eQty" type="number" min="0.1" step=".1" value="${item.qty || 1}" required></div>
+          <div class="field"><label>Calorias (un)</label><input id="eCal" type="number" min="0" step=".1" value="${item.calories}" required></div>
+          <div class="field"><label>Carbos (un)</label><input id="eCarb" type="number" min="0" step=".1" value="${item.carbs}" required></div>
+          <div class="field"><label>Proteínas (un)</label><input id="eProt" type="number" min="0" step=".1" value="${item.protein}" required></div>
+          <div class="field"><label>Fibras (un)</label><input id="eFib" type="number" min="0" step=".1" value="${item.fiber}" required></div>
+          <div class="field"><label>Gorduras (un)</label><input id="eFat" type="number" min="0" step=".1" value="${item.fat}" required></div>
         </form>
       </div>
 
@@ -384,6 +415,7 @@ meals.addEventListener("click", e => {
         item.fat = Number(selected.fat);
       } else {
         item.name = document.getElementById("eName").value.trim();
+        item.qty = Number(document.getElementById("eQty").value) || 1;
         item.calories = Number(document.getElementById("eCal").value);
         item.carbs = Number(document.getElementById("eCarb").value);
         item.protein = Number(document.getElementById("eProt").value);
@@ -396,22 +428,25 @@ meals.addEventListener("click", e => {
   }
 });
 
-meals.addEventListener("change", e => {
-  if (e.target.dataset.action !== "toggle") return;
-  const day = currentDay(), m = day.meals.find(x => x.id === e.target.dataset.meal), i = m?.items.find(x => x.id === e.target.dataset.id);
-  if (!i) return;
-  i.consumed = e.target.checked;
-  commit(day);
-});
-
 addForm.onsubmit = e => {
   e.preventDefault();
   if (selectedDate !== today()) { toast("Adição rápida só está disponível para hoje."); return; }
   const day = currentDay(), m = day.meals.find(x => x.id === fMeal.value);
   if (!m) return;
-  m.items.push({ id: uid(), name: fName.value.trim(), calories: +fCal.value, carbs: +fCarb.value, protein: +fProt.value, fiber: +fFib.value, fat: +fFat.value, consumed: false });
+  m.items.push({
+    id: uid(),
+    name: fName.value.trim(),
+    qty: +fQty.value || 1,
+    calories: +fCal.value,
+    carbs: +fCarb.value,
+    protein: +fProt.value,
+    fiber: +fFib.value,
+    fat: +fFat.value,
+    consumed: false
+  });
   commit(day);
   addForm.reset();
+  document.getElementById("fQty").value = "1";
 };
 
 function openDietEditorUI() {
@@ -435,7 +470,7 @@ function openDietEditorUI() {
               <strong style="font-size:12px; color:var(--muted);">Itens cadastrados nesta refeição:</strong>
               ${m.items.map((it, iIdx) => `
                 <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; padding:4px 0; border-bottom:1px solid #2a2a2a;">
-                  <span>${esc(it.name)} (${it.calories} kcal)</span>
+                  <span>${esc(it.name)} (Qtd base: ${it.qty || 1} | ${it.calories} kcal/un)</span>
                   <button class="btn" style="padding:2px 6px; font-size:10px;" onclick="removeItemUI(${mIdx}, ${iIdx})">Excluir</button>
                 </div>
               `).join("")}
@@ -466,13 +501,14 @@ function openDietEditorUI() {
   window.addItemUI = (mIdx) => {
     const name = prompt("Nome do alimento:");
     if (!name) return;
-    const cal = Number(prompt("Calorias (kcal):", "100")) || 0;
-    const carbs = Number(prompt("Carboidratos (g):", "0")) || 0;
-    const prot = Number(prompt("Proteínas (g):", "0")) || 0;
-    const fib = Number(prompt("Fibras (g):", "0")) || 0;
-    const fat = Number(prompt("Gorduras (g):", "0")) || 0;
+    const qty = Number(prompt("Quantidade padrão:", "1")) || 1;
+    const cal = Number(prompt("Calorias por unidade (kcal):", "78")) || 0;
+    const carbs = Number(prompt("Carboidratos por unidade (g):", "0")) || 0;
+    const prot = Number(prompt("Proteínas por unidade (g):", "0")) || 0;
+    const fib = Number(prompt("Fibras por unidade (g):", "0")) || 0;
+    const fat = Number(prompt("Gorduras por unidade (g):", "0")) || 0;
 
-    d.meals[mIdx].items.push({ id: uid(), name, calories: cal, carbs, protein: prot, fiber: fib, fat });
+    d.meals[mIdx].items.push({ id: uid(), name, qty, calories: cal, carbs, protein: prot, fiber: fib, fat });
     showModal("Configurar Dieta Base (UI)", renderDietUI());
   };
 
@@ -481,7 +517,7 @@ function openDietEditorUI() {
     showModal("Configurar Dieta Base (UI)", renderDietUI());
   };
 
-  document.getElementById("modalBody").addEventListener("click", e => {
+  document.getElementById("modalBody").onclick = e => {
     if (e.target.id === "saveDietUIBtn") {
       d.name = document.getElementById("uiDietName").value.trim() || "Minha dieta";
       d.meals.forEach((m, i) => {
@@ -496,7 +532,7 @@ function openDietEditorUI() {
       render();
       toast("Dieta base atualizada");
     }
-  });
+  };
 }
 
 function openJsonEditor() {
@@ -556,8 +592,8 @@ function download(name, data) {
   a.href = URL.createObjectURL(b); a.download = name; a.click(); URL.revokeObjectURL(a.href);
 }
 
-closeModal.onclick = closeModal;
-modal.onclick = e => { if (e.target === modal) closeModal(); };
+document.getElementById("closeModalBtn").onclick = closeModal;
+document.getElementById("modal").onclick = e => { if (e.target.id === "modal") closeModal(); };
 
 render();
 </script>
