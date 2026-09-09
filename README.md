@@ -1,4 +1,4 @@
-# Dieta Diária
+# Minha Dieta
 
 App web estático em português do Brasil para acompanhar uma dieta diária sem backend.
 
@@ -10,18 +10,29 @@ App web estático em português do Brasil para acompanhar uma dieta diária sem 
 - Checkbox por item.
 - Totais automáticos de calorias, carboidratos, proteínas, fibras e gorduras dos itens consumidos.
 - Indicadores visuais no topo.
-- Adição rápida de itens para o dia atual.
+- Menu superior organizado em Dia, Dieta e Dados.
+- Adição rápida em modal para o dia atual.
+- Busca de produto por código de barras usando Open Food Facts.
+- Leitura por câmera quando o navegador oferece `BarcodeDetector`.
+- Preenchimento manual como alternativa quando a câmera ou o produto não estiver disponível.
 - Edição e exclusão de itens do dia atual.
 - Versionamento de cada dia no `localStorage`.
 - Histórico de versões diárias.
 - Exportação/importação de backup JSON.
 - Importação e cadastro/edição da dieta-base em JSON.
-- Migração automática da versão anterior com 5 refeições fixas.
-- Sem backend e sem envio de dados para terceiros.
+- Layout responsivo para celular, incluindo a configuração de refeições.
+
+## Código de barras
+
+A adição rápida permite informar o código manualmente ou usar a câmera do dispositivo quando suportado pelo navegador. A consulta nutricional usa a API pública do Open Food Facts. Os dados retornados são usados como ponto de partida e devem ser conferidos no rótulo do produto antes de salvar.
+
+Os valores nutricionais obtidos nessa consulta são apresentados como referência por 100 g/ml. O código de barras pode ser armazenado junto ao item adicionado.
+
+O código de barras é enviado ao Open Food Facts somente quando a busca de produto é utilizada. A consulta é feita diretamente do navegador, sem backend próprio.
 
 ## Configuração das refeições
 
-Na opção **Configurar dieta e refeições**, a pessoa escolhe de 1 a 12 refeições por dia e define o nome e o horário de cada uma. Ao salvar, os novos dias passam a usar essa estrutura. Itens das refeições existentes são preservados quando possível.
+Na opção **Configurar refeições**, a pessoa define o nome e o horário de cada refeição, pode adicionar ou remover refeições e pode cadastrar alimentos na dieta-base. A interface usa um layout responsivo para evitar que os campos ultrapassem a largura da tela em celulares.
 
 ## Formato JSON da dieta
 
@@ -58,17 +69,17 @@ A dieta usa `schemaVersion: 2` e aceita de 1 a 12 refeições. Cada refeição d
 }
 ```
 
-Os valores nutricionais são referentes à porção representada pelo item.
+Os valores nutricionais são referentes à porção representada pelo item. Para produtos encontrados por código de barras, o app inicialmente apresenta os valores informados pelo Open Food Facts por 100 g/ml.
 
 ## Armazenamento
 
-A chave `dietaDiaria.v2` do `localStorage` guarda a dieta-base e o histórico por data. Cada alteração gera uma nova versão do dia. A versão anterior `dietaDiaria.v1` é migrada automaticamente quando encontrada.
+A chave `dietaDiaria.v2` do `localStorage` guarda a dieta-base e o histórico por data. Cada alteração gera uma nova versão do dia.
 
 ## Privacidade e direitos
 
-Não há conta, backend, analytics, API externa, imagens externas, fontes externas ou bibliotecas de terceiros. Os dados registrados pelo usuário ficam somente no navegador. O backup exportado contém apenas a estrutura da dieta e os registros locais armazenados pelo app.
+Não há conta, backend, analytics ou envio de registros da dieta para um servidor próprio. Os dados registrados pelo usuário ficam no navegador. O backup exportado contém a estrutura da dieta e os registros locais armazenados pelo app.
 
-O repositório contém somente o código e a documentação do aplicativo, sem dados pessoais do usuário.
+A consulta por código de barras é uma exceção: quando usada, o código informado ou lido pela câmera é enviado diretamente ao Open Food Facts para localizar o produto e seus dados nutricionais. A base do Open Food Facts é alimentada por contribuições e os dados podem estar incompletos ou incorretos; confira o rótulo do produto.
 
 ## GitHub Pages
 
